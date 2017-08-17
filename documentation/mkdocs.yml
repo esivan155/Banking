@@ -1,0 +1,10 @@
+site_name: CIBC Burndown Bank Statement
+pages:
+    - Usage: index.md
+    - CIBC's API: api.md
+theme: united
+extra_javascript:
+      - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+markdown_extensions:
+    - admonition
+    - mdx_math

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="author" content="Louis Millette"></meta>
+<meta name="description" content="Bank Statement"></meta>
+<title>Bank Statement</title>
+
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/css.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+</head><body class="w3-light-grey">
+
+<!-- w3-content defines a container for fixed size centered content, 
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1><b>Banking Template</b></h1>
+  <p>BANK STATEMENT <span class="w3-tag">Louis Millette</span></p>
+</header>
+
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Blog entries -->
+<div class="w3-col l8 s12" style="margin:auto;">
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Nominal Weekly Distribution</b></h3>
+      <h5>This table shows, given how much money is available throughout the term in a (mostly) lump sum deposit, the amount available weekly, how much I spent in that week, the net difference, and the accumulated difference.  Income is adjusted weekly to represent the new maximum amount that may be spent weekly to balance the budget. <span id="Date" class="w3-opacity"></span></h5>
+    </div>
+
+    <div class="w3-container">
+    <div id="Nominal-Weekly-Distribution-wrapper"></div>
+      <div class="w3-row">
+        <div class="w3-col m8 s12">
+        </div>
+      </div>
+    </div>
+    <h3><b>Spring, 2017</b></h3>
+    <h5>Spring 2017, including predicted values up to the end of the term</h5>
+    <div id="BalanceBurndown4"></div>
+  </div>
+  <hr>
+
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Fall, 2016</b></h3>
+      <h5>Fall 2016 expenditure from sep 1, 2016 to dec 20, 2016. </h5>
+     <span id="Date" class="w3-opacity"></span></h5>
+    </div>
+    <div id="BalanceBurndown1"></div>
+  </div>
+    <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Spring, 2016</b></h3>
+      <h5>Spring 2016 expenditure from may 1, 2016 to aug 20, 2016</h5>
+     <span id="Date" class="w3-opacity"></span></h5>
+    </div>
+    <div id="BalanceBurndown2"></div>
+  </div>
+   <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Winter, 2015</b></h3>
+      <h5>Winter 2015 expenditure from Jan 1, 2015 to Apr 20, 2015</h5>
+     <span id="Date" class="w3-opacity"></span></h5>
+    </div>
+    <div id="BalanceBurndown3"></div>
+  </div>
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>Expenditures</b></h3>
+      <h5>Comparisons of expenditures of different terms, including current one so far.</h5>
+     <span id="Date" class="w3-opacity"></span></h5>
+    </div>
+    <div id="ANOE"></div>
+  </div>
+<!-- END BLOG ENTRIES -->
+</div>
+
+<!-- END GRID -->
+</div><br>
+
+<!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+</body>
+<!-- jquery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- data Tables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<!-- time sorting plug in -->
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/1.10.15/sorting/datetime-moment.js"></script>
+<!-- highcharts -->
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<!-- custom -->
+<script type="text/javascript" src="js/customInsertion.js"></script>
+<script type="text/javascript" src="js/table.js"></script>
+</html>
