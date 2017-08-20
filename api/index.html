@@ -115,7 +115,7 @@
             <div class="col-md-9" role="main">
 
 <h1 id="authentication">Authentication</h1>
-<p>Firstly, you'll need to create an authentication request to aquire an X Auth Token.  The headers are pulled from a request on my computer, feel free to change them to headers aquired from yours or another header.  Note that the URL is an encrypted HTTPS request, as are all calls made to the API.</p>
+<p>Firstly, you'll need to create an authentication request to acquire an X Auth Token.  The headers are pulled from a request on my computer, feel free to change them to headers acquired from yours or another header.  Note that the URL is an encrypted HTTPS request, as are all calls made to the API.</p>
 <pre><code>authenticate_request = requests.post(
     url="https://www.cibconline.cibc.com/ebm-anp/api/v1/json/sessions",
     json={"card": {"value": "{}".format(_username), "description": "", "encrypted": False, "encrypt": True},
@@ -140,7 +140,7 @@
     }
 )
 </code></pre>
-<p>Next you'll need to save the cookies, responce header, and X Auth Token</p>
+<p>Next you'll need to save the cookies, response header, and X Auth Token</p>
 <pre><code>cookies = dict(authenticate_request.cookies)
 self.cookies = cookies
 authenticate_response_headers = authenticate_request.headers
@@ -170,13 +170,13 @@ self.X_Auth_Token = X_Auth_Token
 )
 </code></pre>
 <h2 id="account-id">Account ID</h2>
-<p>after logging in as yourself, go ahead and pull your default account id from the responce</p>
+<p>after logging in as yourself, go ahead and pull your default account id from the response</p>
 <pre><code>login_request_response = login_request.json()
 defaultAccountId = login_request_response['userPreferences'][0]['payeePreferences'][0]['defaultAccountId']
 </code></pre>
 <p>your Default Account ID is persistant across sessions, however I don't recconmend saving it.</p>
 <h1 id="chequing-requests">Chequing Requests</h1>
-<p>Instead of going through the entire API, because I don't own it and didn't build it, i'll only go through pulling chequing account entries (credits and debits)</p>
+<p>Instead of going through the entire API, because I don't own it and didn't build it, I’ll only go through pulling chequing account entries (credits and debits)</p>
 <h2 id="url">url</h2>
 <pre><code>url = "https://www.cibconline.cibc.com/ebm-ai/api/v1/json/transactions?accountId={}&amp;filterBy=range&amp;fromDate={}&amp;lastFilterBy=range&amp;limit=250&amp;lowerLimitAmount=&amp;offset=0&amp;sortAsc=true&amp;sortByField=date&amp;toDate={}&amp;transactionLocation=&amp;transactionType=&amp;upperLimitAmount=".format(
         defaultAccountId,

@@ -118,9 +118,9 @@ ScipyStack.py is a file of requirements for my general scipy stack, but not requ
 <p>For the code, go to <a href="https://github.com/louismillette/Banking/tree/master">here</a></p>
 <hr />
 <h1 id="getting-started">Getting Started</h1>
-<p>To begin, make a call to the StudentBanking function, providing monthly expense, real exclusion, and and extra arguemtns.  When prompted, provide bank card number and password.</p>
+<p>To begin, make a call to the StudentBanking function, providing monthly expense, real exclusion, and extra arguments.  When prompted, provide bank card number and password.</p>
 <h2 id="monthly-expenses">Monthly expenses</h2>
-<p>Monthly expenses is a dictionary of expense names and values representing their costs, each being calculataed monthly.  For example</p>
+<p>Monthly expenses is a dictionary of expense names and values representing their costs, each being calculated monthly.  For example</p>
 <pre><code>  MonthlyExpenses={
           'laundry': 20,
           'groceries': 130,
@@ -137,10 +137,10 @@ ScipyStack.py is a file of requirements for my general scipy stack, but not requ
       'tuition': [re.compile(r'INTERNET BILL PAY .* UNIVERSITY OF WATERLOO'),3224.89,1,'Debit']
   }
 </code></pre>
-<p>these items are provided as a dicionary of lists, each list of 4 values: </p>
+<p>these items are provided as a dictionary of lists, each list of 4 values: </p>
 <ul>
 <li>
-<p>regex to find the discription of the item in the list of banking transactions</p>
+<p>regex to find the description of the item in the list of banking transactions</p>
 </li>
 <li>
 <p>amount of money this will exclude, each time</p>
@@ -152,7 +152,7 @@ ScipyStack.py is a file of requirements for my general scipy stack, but not requ
 <p>'Debit' or 'Credit' transaction type</p>
 </li>
 </ul>
-<p>The total amount of money (lump sum) adds or subtracts the amount corrispoding to the real exclusion, then the individual transactions are excluded from the rest of the analysis.  These transactions are included in the number amounts shown, but as if they all occured at the beggining of the term instead of incrementally throught the term.</p>
+<p>The total amount of money (lump sum) adds or subtracts the amount corresponding to the real exclusion, then the individual transactions are excluded from the rest of the analysis.  These transactions are included in the number amounts shown, but as if they all occurred at the beginning of the term instead of incrementally throughout the term.</p>
 <h2 id="extra">Extra</h2>
 <p>The extra argument allows you to compare the current term to prior terms.  It'll look something like this:</p>
 <pre><code>extra=[
@@ -188,14 +188,14 @@ ScipyStack.py is a file of requirements for my general scipy stack, but not requ
         },
     ]
 </code></pre>
-<p>extra takes a list of dictionaries, each representing a particular period, given by dateFrom and dateUntil (python datetimes), useing custom exclusions and month expenses explained above, and a name for the chart</p>
+<p>extra takes a list of dictionaries, each representing a period, given by dateFrom and dateUntil (python datetimes), using custom exclusions and month expenses explained above, and a name for the chart</p>
 <h1 id="template">Template</h1>
-<p>It is important to maintain the origonal directory structure before running.  After running program template.html in the bankingTemplate deirectory will have been updated, to reflect the arguemtns provided to the StudentBanking function. </p>
-<p>The template treats all credit to the account as a lump sum payment at the beggining of the term, even if that is not the case, and pulls from that lump sum the grand total of all the real exclusions as if they had happened at the beggining of the term, even if that is not the case.  Real Exclusions are then ignored from the statement moving forward.  </p>
+<p>It is important to maintain the original directory structure before running.  After running program template.html in the bankingTemplate directory will have been updated, to reflect the arguments provided to the StudentBanking function. </p>
+<p>The template treats all credit to the account as a lump sum payment at the beginning of the term, even if that is not the case, and pulls from that lump sum the grand total of all the real exclusions as if they had happened at the beginning of the term, even if that is not the case.  Real Exclusions are then ignored from the statement moving forward.  </p>
 <ul>
-<li><code>Balance</code> is the lump sum less any debits to the account, excluding the real exlusions</li>
+<li><code>Balance</code> is the lump sum less any debits to the account, excluding the real exclusions</li>
 <li><code>Income</code> is represented by dividing the current amount left in the lump sum by the remaining number of weeks, for each week</li>
-<li><code>Income After Bills</code> is that weeks income, less the weekly bills (provided by month, calulated for each week)</li>
+<li><code>Income After Bills</code> is that weeks income, less the weekly bills (provided by month, calculated for each week)</li>
 <li><code>Expenditure</code> is the sum of the debits, excluding real exclusions, pulled from the CIBC API for each given week</li>
 </ul></div>
         </div>
