@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>CIBC's API - CIBC Burndown Bank Statement</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">CIBC Burndown Bank Statement</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="..">Usage</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">CIBC's API</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                <li >
+                    <a rel="next" href="..">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#authentication">Authentication</a></li>
+        
+    
+        <li class="main "><a href="#login-request">Login Request</a></li>
+        
+            <li><a href="#request">request</a></li>
+        
+            <li><a href="#account-id">Account ID</a></li>
+        
+    
+        <li class="main "><a href="#chequing-requests">Chequing Requests</a></li>
+        
+            <li><a href="#url">url</a></li>
+        
+            <li><a href="#request_1">Request</a></li>
+        
+    
+        <li class="main "><a href="#transactions">Transactions</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="authentication">Authentication</h1>
+<p>Firstly, you'll need to create an authentication request to aquire an X Auth Token.  The headers are pulled from a request on my computer, feel free to change them to headers aquired from yours or another header.  Note that the URL is an encrypted HTTPS request, as are all calls made to the API.</p>
+<pre><code>authenticate_request = requests.post(
+    url="https://www.cibconline.cibc.com/ebm-anp/api/v1/json/sessions",
+    json={"card": {"value": "{}".format(_username), "description": "", "encrypted": False, "encrypt": True},
+          "password": "{}".format(_password)},
+    headers={
+        "Host": "www.cibconline.cibc.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0",
+        "Accept": "application/vnd.api+json",
+        "Accept-Language": "en",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Referer":"https://www.cibconline.cibc.com/ebm-resources/public/banking/cibc/client/web/index.html",
+        "Content-Type": "application/vnd.api+json",
+        "Client-Type": "default_web",
+        "X-Auth-Token": "",
+        "brand": "cibc",
+        "WWW-Authenticate": "CardAndPassword",
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Length": "112",
+        "Connection": "keep-alive",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+    }
+)
+</code></pre>
+<p>Next you'll need to save the cookies, responce header, and X Auth Token</p>
+<pre><code>cookies = dict(authenticate_request.cookies)
+self.cookies = cookies
+authenticate_response_headers = authenticate_request.headers
+X_Auth_Token = authenticate_response_headers['X-Auth-Token']
+self.X_Auth_Token = X_Auth_Token
+</code></pre>
+<h1 id="login-request">Login Request</h1>
+<p>Make a login request like below.  Again the headers are not rigid, however, the "X-Auth-Token" filed must be the X Auth Token from earlier.</p>
+<h2 id="request">request</h2>
+<pre><code>login_request = requests.get(
+    url="https://www.cibconline.cibc.com/ebm-anp/api/v1/profile/json/userPreferences",
+    headers={
+        "Host": "www.cibconline.cibc.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0",
+        "Accept": "application/vnd.api+json",
+        "Accept-Language": "en",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Referer":"https://www.cibconline.cibc.com/ebm-resources/public/banking/cibc/client/web/index.html",
+        "Content-Type": "application/vnd.api+json",
+        "Client-Type": "default_web",
+        "brand": "cibc",
+        "X-Auth-Token": X_Auth_Token,
+        "X-Requested-With": "XMLHttpRequest",
+        "Connection": "keep-alive",
+    },
+    cookies=cookies
+)
+</code></pre>
+<h2 id="account-id">Account ID</h2>
+<p>after logging in as yourself, go ahead and pull your default account id from the responce</p>
+<pre><code>login_request_response = login_request.json()
+defaultAccountId = login_request_response['userPreferences'][0]['payeePreferences'][0]['defaultAccountId']
+</code></pre>
+<p>your Default Account ID is persistant across sessions, however I don't recconmend saving it.</p>
+<h1 id="chequing-requests">Chequing Requests</h1>
+<p>Instead of going through the entire API, because I don't own it and didn't build it, i'll only go through pulling chequing account entries (credits and debits)</p>
+<h2 id="url">url</h2>
+<pre><code>url = "https://www.cibconline.cibc.com/ebm-ai/api/v1/json/transactions?accountId={}&amp;filterBy=range&amp;fromDate={}&amp;lastFilterBy=range&amp;limit=250&amp;lowerLimitAmount=&amp;offset=0&amp;sortAsc=true&amp;sortByField=date&amp;toDate={}&amp;transactionLocation=&amp;transactionType=&amp;upperLimitAmount=".format(
+        defaultAccountId,
+        dateFrom.strftime("%Y-%m-%d"),
+        dateUntil.strftime("%Y-%m-%d")
+    )
+</code></pre>
+<p>the dateFrom and dateUntil arguments are python datetimes representing from when until when you want to pull credit and debit entries</p>
+<h2 id="request_1">Request</h2>
+<pre><code>chequing_requests = requests.get(
+    url="https://www.cibconline.cibc.com/ebm-ai/api/v1/json/transactions?accountId={}&amp;filterBy=range&amp;fromDate={}&amp;lastFilterBy=range&amp;limit=150&amp;lowerLimitAmount=&amp;offset=0&amp;sortAsc=true&amp;sortByField=date&amp;toDate={}&amp;transactionLocation=&amp;transactionType=&amp;upperLimitAmount=".format(
+        defaultAccountId,
+        dateFrom.strftime("%Y-%m-%d"),
+        dateUntil.strftime("%Y-%m-%d")
+    ),
+    headers={
+        "Host": "www.cibconline.cibc.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0",
+        "Accept": "application/vnd.api+json",
+        "Accept-Language": "en",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Referer":"https://www.cibconline.cibc.com/ebm-resources/public/banking/cibc/client/web/index.html",
+        "Content-Type": "application/vnd.api+json",
+        "Client-Type": "default_web",
+        "brand": "cibc",
+        "X-Auth-Token": X_Auth_Token,
+        "X-Requested-With": "XMLHttpRequest",
+        "Connection": "keep-alive",
+    },
+    cookies=cookies
+  )
+transactions = chequing_requests.json()['transactions']
+</code></pre>
+<h1 id="transactions">Transactions</h1>
+<p>There are a couple of ways to do this one, I set it up as an iterator.  This is just to format the output as a nice dictionary.</p>
+<pre><code>for transaction in transactions:
+    transaction_type = 'Debit' if transaction['debit'] else 'Credit'
+    date_datetime = datetime.datetime.strptime(transaction['date'].split('T')[0],"%Y-%m-%d")
+    amount = transaction['debit'] if transaction_type == 'Debit' else transaction['credit']
+    yield {
+        'transaction': transaction_type,  # 'Debit' or 'Credit'
+        'date': date_datetime,
+        'details': transaction['transactionDescription'],
+        'amount': amount,
+        'balance': transaction['runningBalance']
+    }
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
