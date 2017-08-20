@@ -7,7 +7,7 @@ ScipyStack.py is a file of requirements for my general scipy stack, but not requ
 ---
 **NOTE**
 
-For the code, go to <a href="https://github.com/louismillette/Investement-Calulator/tree/master">here</a>
+For the code, go to <a href="https://github.com/louismillette/Banking/tree/master">here</a>
 
 ---
 
