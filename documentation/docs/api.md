@@ -1,6 +1,6 @@
 # Authentication
 
-Firstly, you'll need to create an authentication request to aquire an X Auth Token.  The headers are pulled from a request on my computer, feel free to change them to headers aquired from yours or another header.  Note that the URL is an encrypted HTTPS request, as are all calls made to the API.
+Firstly, you'll need to create an authentication request to acquire an X Auth Token.  The headers are pulled from a request on my computer, feel free to change them to headers acquired from yours or another header.  Note that the URL is an encrypted HTTPS request, as are all calls made to the API.
 
     authenticate_request = requests.post(
         url="https://www.cibconline.cibc.com/ebm-anp/api/v1/json/sessions",
@@ -26,7 +26,7 @@ Firstly, you'll need to create an authentication request to aquire an X Auth Tok
         }
     )
 
-Next you'll need to save the cookies, responce header, and X Auth Token
+Next you'll need to save the cookies, response header, and X Auth Token
 
     cookies = dict(authenticate_request.cookies)
     self.cookies = cookies
@@ -61,7 +61,7 @@ Make a login request like below.  Again the headers are not rigid, however, the 
 
 ## Account ID
 
-after logging in as yourself, go ahead and pull your default account id from the responce
+after logging in as yourself, go ahead and pull your default account id from the response
 
     login_request_response = login_request.json()
     defaultAccountId = login_request_response['userPreferences'][0]['payeePreferences'][0]['defaultAccountId']
@@ -70,7 +70,7 @@ your Default Account ID is persistant across sessions, however I don't recconmen
 
 # Chequing Requests
 
-Instead of going through the entire API, because I don't own it and didn't build it, i'll only go through pulling chequing account entries (credits and debits)
+Instead of going through the entire API, because I don't own it and didn't build it, I’ll only go through pulling chequing account entries (credits and debits)
 
 ## url
 
